@@ -4,45 +4,47 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
+import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import com.seymasingin.coinland.navigation.BottomNavigationBar
+import com.seymasingin.coinland.navigation.Screen
+import com.seymasingin.coinland.presentation.home.Home
+import com.seymasingin.coinland.presentation.Profile
+import com.seymasingin.coinland.presentation.Stock
 import com.seymasingin.coinland.ui.theme.CoinLandTheme
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
+
+    private lateinit var navController: NavHostController
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             CoinLandTheme {
-                // A surface container using the 'background' color from the theme
-                Surface(
+                navController = rememberNavController()
+                Scaffold(
                     modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
-                ) {
-                    Greeting("Android")
+                    containerColor = MaterialTheme.colorScheme.background,
+                    bottomBar = {
+                        BottomNavigationBar(navController)
+                    }
+                ){innerPadding ->
+                    NavHost(navController, startDestination = Screen.Home.route, Modifier.padding(innerPadding)){
+                        composable(Screen.Home.route){ Home(navController) }
+                        composable(Screen.Stock.route){ Stock(navController)}
+                        composable(Screen.Profile.route){ Profile(navController)}
+                    }
                 }
             }
         }
     }
 }
 
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    CoinLandTheme {
-        Greeting("Android")
-    }
-}

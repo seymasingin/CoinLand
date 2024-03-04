@@ -28,6 +28,7 @@ object NetworkModule {
         addInterceptor(
             Interceptor { chain ->
                 val builder = chain.request().newBuilder()
+                builder.header("x-cg-demo-api-key", "CG-vBMdu4bgrGb5p9CDx4dSjGey")
                 return@Interceptor chain.proceed(builder.build())
             }
         )

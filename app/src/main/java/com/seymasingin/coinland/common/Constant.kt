@@ -1,5 +1,5 @@
 package com.seymasingin.coinland.common
 
 object Constant {
-    const val BASE_URL = "api.coincap.io/v2/assets"
+    const val BASE_URL = "https:/api.coingecko.com/api/v3/ping"
 }
