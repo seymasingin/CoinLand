@@ -1,13 +1,18 @@
 package com.seymasingin.coinland.data.model
 
-data class CoinsList(
+import androidx.compose.ui.graphics.Color
+
+data class CoinUI(
     val id: String,
     val symbol: String,
     val name: String,
+    val imageUrl: String,
+    val trendColor: Color,
+    val sparklineData: List<DataPoint>,
+    val price: String,
 )
 
-sealed interface CoinsListUiState {
-    object Idle : CoinsListUiState
-    data class Refreshing(val isAutomaticRefresh: Boolean) : CoinsListUiState
-    data class Error(val message: String) : CoinsListUiState
-}
+data class CoinList(
+    val coinList: List<CoinUI>
+)
+

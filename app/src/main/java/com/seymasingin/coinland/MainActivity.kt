@@ -3,6 +3,7 @@ package com.seymasingin.coinland
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.viewModels
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
@@ -17,6 +18,7 @@ import com.seymasingin.coinland.navigation.Screen
 import com.seymasingin.coinland.presentation.home.Home
 import com.seymasingin.coinland.presentation.Profile
 import com.seymasingin.coinland.presentation.Stock
+import com.seymasingin.coinland.presentation.home.HomeViewModel
 import com.seymasingin.coinland.ui.theme.CoinLandTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -25,6 +27,8 @@ class MainActivity : ComponentActivity() {
 
     private lateinit var navController: NavHostController
 
+    private val homeViewModel: HomeViewModel by viewModels()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -32,13 +36,13 @@ class MainActivity : ComponentActivity() {
                 navController = rememberNavController()
                 Scaffold(
                     modifier = Modifier.fillMaxSize(),
-                    containerColor = MaterialTheme.colorScheme.background,
                     bottomBar = {
                         BottomNavigationBar(navController)
                     }
                 ){innerPadding ->
                     NavHost(navController, startDestination = Screen.Home.route, Modifier.padding(innerPadding)){
-                        composable(Screen.Home.route){ Home(navController) }
+                        composable(Screen.Home.route){
+                            Home(homeViewModel) }
                         composable(Screen.Stock.route){ Stock(navController)}
                         composable(Screen.Profile.route){ Profile(navController)}
                     }
