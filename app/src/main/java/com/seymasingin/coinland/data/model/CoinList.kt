@@ -1,18 +1,16 @@
 package com.seymasingin.coinland.data.model
 
-import androidx.compose.ui.graphics.Color
+import com.google.gson.annotations.SerializedName
 
 data class CoinUI(
     val id: String,
     val symbol: String,
-    val name: String,
-    val imageUrl: String,
-    val trendColor: Color,
-    val sparklineData: List<DataPoint>,
-    val price: String,
+    val name: String?,
+    val image: String,
+
+    @SerializedName("current_price")
+    val price: Double?,
 )
 
-data class CoinList(
-    val coinList: List<CoinUI>
-)
+
 

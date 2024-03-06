@@ -6,7 +6,6 @@ import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
@@ -41,8 +40,7 @@ class MainActivity : ComponentActivity() {
                     }
                 ){innerPadding ->
                     NavHost(navController, startDestination = Screen.Home.route, Modifier.padding(innerPadding)){
-                        composable(Screen.Home.route){
-                            Home(homeViewModel) }
+                        composable(Screen.Home.route){ Home(homeViewModel) }
                         composable(Screen.Stock.route){ Stock(navController)}
                         composable(Screen.Profile.route){ Profile(navController)}
                     }
