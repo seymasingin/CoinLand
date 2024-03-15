@@ -30,24 +30,24 @@ import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
 import com.seymasingin.coinland.data.model.CoinDetail
 import com.seymasingin.coinland.intent.CoinListIntent
+import kotlinx.coroutines.delay
 
-@OptIn(ExperimentalGlideComposeApi::class)
 @Composable
 fun Detail(
     viewModel: DetailViewModel,
-    selectedCoin: CoinDetail
+    selectedCoin: List<CoinDetail>
 ){
 
     LaunchedEffect(key1 = "detail") {
-
-            viewModel.dispatch(CoinListIntent.Refresh, selectedCoin.id)
-
+        viewModel.dispatch(CoinListIntent.Refresh, selectedCoin.firstOrNull()?.id ?: "")
     }
 
     val viewState by viewModel.viewState.collectAsState()
 
 
-    Scaffold {innerPadding ->
+
+
+    Scaffold { innerPadding ->
         when (viewState) {
 
             is DetailViewState.Idle -> Unit
@@ -57,7 +57,7 @@ fun Detail(
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.Center,
                     modifier = Modifier.fillMaxSize()
-                ){
+                ) {
                     CircularProgressIndicator(
                         modifier = Modifier.size(100.dp)
                     )
@@ -69,7 +69,7 @@ fun Detail(
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.Center,
                     modifier = Modifier.fillMaxSize()
-                ){
+                ) {
                     Text(
                         text = "An error occurred",
                         color = Color.Black,
@@ -78,34 +78,41 @@ fun Detail(
             }
 
             is DetailViewState.Success -> {
-                Column(modifier = Modifier.padding(innerPadding)){
-                    Box(modifier = Modifier
-                        .width(80.dp)
-                        .height(80.dp)){
+                if (selectedCoin.isNotEmpty()) {
+                    val sn = selectedCoin[0]
+                    Column(modifier = Modifier.padding(innerPadding)) {
+                        Box(
+                            modifier = Modifier
+                                .width(180.dp)
+                                .height(180.dp)
+                        ) {
 
-                        LineChart(
-                            modifier = Modifier.size(width = 48.dp, height = 29.dp),
-                            data = selectedCoin.sparklineData,
-                            graphColor = Color.Blue,
-                            showDashedLine = true
+
+                        Text(
+                            text = sn.name,
+                            fontWeight = FontWeight.Bold,
+                            overflow = TextOverflow.Ellipsis,
+                            maxLines = 1
                         )
+
+                            }
                         }
-                    }
-                    Row(){
+
+                        /* Row(){
                         GlideImage(
                             modifier = Modifier.size(40.dp),
-                            model = selectedCoin.image,
+                            model = sn.image,
                             contentDescription = ""
                         )
                         Column {
                             Text(
-                                text = selectedCoin.name,
+                                text = sn.name,
                                 fontWeight = FontWeight.Bold,
                                 overflow = TextOverflow.Ellipsis,
                                 maxLines = 1
                             )
                             Text(
-                                text = selectedCoin.symbol,
+                                text = sn.symbol,
                                 style = MaterialTheme.typography.bodyMedium,
                                 color = MaterialTheme.colorScheme.onSecondaryContainer,
                                 fontWeight = FontWeight.Medium,
@@ -115,7 +122,7 @@ fun Detail(
                         }
                         Column {
                             Text(
-                                text = selectedCoin.price.toString(),
+                                text = sn.price.toString(),
                                 style = MaterialTheme.typography.bodyMedium,
                                 modifier = Modifier.padding(
                                     start = 4.dp,
@@ -126,7 +133,7 @@ fun Detail(
                                 fontWeight = FontWeight.Medium
                             )
                             Text(
-                                text = selectedCoin.priceChangePercentage,
+                                text = sn.priceChangePercentage,
                                 style = MaterialTheme.typography.titleMedium,
                                 modifier = Modifier
                                     .padding(horizontal = 8.dp, vertical = 1.dp)
@@ -136,26 +143,31 @@ fun Detail(
                                 maxLines = 1
                             )
                         }
-                    }
-                    Column {
+                    }*/
+                        /*Column {
                         Row{
                             Text(text = "Market Cap")
-                            Text(text = selectedCoin.marketCapRank.toString(),)
+                            Text(text = sn.marketCapRank.toString(),)
                         }
                         Row {
                             Text(text = "Liquidity Score")
-                            Text(text = selectedCoin.liquidityScore.toString())
+                            Text(text = sn.liquidityScore.toString())
                         }
                         Row {
                             Text(text = "Highest Price 24h")
-                            Text(text = selectedCoin.high24h)
+                            Text(text = sn.high24h)
                         }
                         Row {
                             Text(text = "Lowest Price 24h")
-                            Text(text = selectedCoin.low24h)
+                            Text(text = sn.low24h)
                         }
+                    }*/
+
+
                     }
                 }
             }
         }
     }
+
+

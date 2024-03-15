@@ -2,6 +2,7 @@ package com.seymasingin.coinland.presentation.home
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.seymasingin.coinland.data.model.CoinDetail
 import com.seymasingin.coinland.data.model.CoinUI
 import com.seymasingin.coinland.data.source.remote.CoinService
 import com.seymasingin.coinland.intent.CoinListIntent
@@ -41,6 +42,6 @@ sealed interface CoinListViewState {
     data object Idle : CoinListViewState
     data class Loading(val isAutomaticRefresh: Boolean) : CoinListViewState
     data class Error(val message: String) : CoinListViewState
-    data class Success(val coins: List<CoinUI?>) : CoinListViewState
+    data class Success(val coins: List<CoinUI>) : CoinListViewState
 }
 

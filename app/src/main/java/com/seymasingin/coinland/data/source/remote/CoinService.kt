@@ -2,10 +2,8 @@ package com.seymasingin.coinland.data.source.remote
 
 import com.seymasingin.coinland.data.model.CoinDetail
 import com.seymasingin.coinland.data.model.CoinUI
-import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query
-import retrofit2.http.Path
 
 interface CoinService {
 
@@ -18,8 +16,8 @@ interface CoinService {
         @Query("sparkline") includeSparkline7dData: Boolean = false,
     ): List<CoinUI>
 
-    @GET ("coins/{id}?localization=false&tickers=false&market_data=true&community_data=false&developer_data=false&sparkline=false")
+    @GET("coins/markets?vs_currency=usd")
     suspend fun getCoinDetail(
-        @Path("id") id: String,
-    ) : CoinDetail
+        @Query("ids") id: String
+    ): List<CoinDetail>
 }

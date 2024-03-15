@@ -5,20 +5,12 @@ import com.google.gson.annotations.SerializedName
 
 data class CoinDetail (
 
-    @SerializedName("block_time_in_minutes")
-    val blockTimeInMinutes: Int,
-
-    @SerializedName("categories")
-    val categories: List<String>,
 
     @SerializedName("community_score")
     val communityScore: Double,
 
     @SerializedName("country_origin")
     val countryOrigin: String,
-
-    @SerializedName("description")
-    val description: String,
 
     @SerializedName("hashing_algorithm")
     val hashingAlgorithm: String,
@@ -27,7 +19,7 @@ data class CoinDetail (
     val id: String,
 
     @SerializedName("image")
-    val image: Image,
+    val image: String,
 
     @SerializedName("last_updated")
     val lastUpdated: String,
