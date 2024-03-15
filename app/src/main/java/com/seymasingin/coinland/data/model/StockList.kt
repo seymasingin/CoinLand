@@ -1,4 +1,5 @@
 package com.seymasingin.coinland.data.model
 
-class StockList {
-}
+data class StockList (
+    val id: String,
+)

@@ -20,9 +20,6 @@ data class CoinDetail (
     @SerializedName("description")
     val description: String,
 
-    @SerializedName("genesis_date")
-    val genesisDate: String,
-
     @SerializedName("hashing_algorithm")
     val hashingAlgorithm: String,
 
@@ -35,8 +32,11 @@ data class CoinDetail (
     @SerializedName("last_updated")
     val lastUpdated: String,
 
-    @SerializedName("links")
-    val links: String,
+    @SerializedName("high_24h")
+    val high24h: String,
+
+    @SerializedName("low_24h")
+    val low24h: String,
 
     @SerializedName("liquidity_score")
     val liquidityScore: Double,
@@ -45,8 +45,16 @@ data class CoinDetail (
     val marketCapRank: Int,
 
     @SerializedName("name")
-    val name: String?,
+    val name: String,
 
     @SerializedName("symbol")
-    val symbol: String
+    val symbol: String,
+
+    @SerializedName("current_price")
+    val price: Double,
+
+    @SerializedName("price_change_percentage_24h")
+    val priceChangePercentage: String,
+
+    val sparklineData: List<DataPoint>,
 )

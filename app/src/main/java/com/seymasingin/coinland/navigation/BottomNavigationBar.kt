@@ -6,10 +6,12 @@ import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.res.painterResource
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.compose.currentBackStackEntryAsState
+import com.seymasingin.coinland.R
 
 @Composable
 fun BottomNavigationBar(navController: NavController) {
@@ -20,22 +22,33 @@ fun BottomNavigationBar(navController: NavController) {
     NavigationBar {
         val items = listOf(Screen.Home, Screen.Stock, Screen.Profile)
 
-        items.forEachIndexed { index, item ->
+        items.forEachIndexed { _, item ->
+
             NavigationBarItem(
-                icon = { Icon(item.icon, contentDescription = item.label) },
+                icon = {
+                    when (item) {
+                        Screen.Home -> Icon(painter =painterResource(id = R.drawable.ic_home), contentDescription = "")
+                        Screen.Stock -> Icon(painter = painterResource(id = R.drawable.ic_stock), contentDescription = "")
+                        Screen.Profile -> Icon(painter =painterResource(id = R.drawable.ic_profile), contentDescription = "")
+                        else -> {}
+                    }
+                       },
                 label = { Text(item.label) },
                 selected = currentDestination?.hierarchy?.any { it.route == item.route } == true,
-                onClick = { navController.navigate(item.route) {
-                    popUpTo(navController.graph.findStartDestination().id) {
-                        saveState = true
+                onClick = {
+                    navController.navigate(item.route) {
+                        popUpTo(navController.graph.findStartDestination().id) {
+                            saveState = true
+                        }
+                        launchSingleTop = true
+                        restoreState = true
                     }
-                    launchSingleTop = true
-                    restoreState = true
-                } }
+                }
             )
         }
     }
 }
+
 
 
 

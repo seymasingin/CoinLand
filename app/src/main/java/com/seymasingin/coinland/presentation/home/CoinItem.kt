@@ -18,19 +18,23 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
+import com.seymasingin.coinland.data.model.CoinDetail
 import com.seymasingin.coinland.data.model.CoinUI
-
+import com.seymasingin.coinland.navigation.Screen
 
 @OptIn(ExperimentalGlideComposeApi::class, ExperimentalMaterial3Api::class)
 @Composable
 fun CoinItem(
-    coin: CoinUI
+    coin: CoinUI,
+    navController: NavController
 ) {
 
     Card(
         onClick = {
+            navController.navigate(Screen.Home.Detail(coin.id).route)
         },
         colors = CardDefaults.cardColors(
             contentColor = Color.Gray
@@ -82,14 +86,3 @@ fun CoinItem(
     }
 }
 
-@Composable
-@Preview
-fun CoinItemPreview(){
-    CoinItem(coin = CoinUI(
-        "0",
-        "BTC",
-        "Bitcoin",
-        "https://assets.coingecko.com/coins/images/1/large/bitcoin.png?1547033579",
-        666.00
-    ))
-}
