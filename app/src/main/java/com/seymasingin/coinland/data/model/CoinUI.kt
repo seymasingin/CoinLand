@@ -10,6 +10,9 @@ data class CoinUI(
 
     @SerializedName("current_price")
     val price: Double?,
+
+    @SerializedName("price_change_percentage_24h")
+    val priceChangePercentage: String,
 )
 
 

@@ -49,7 +49,7 @@ override fun onCreate(savedInstanceState: Bundle?) {
                     }
                     composable(Screen.Stock.route){ Stock(navController)}
                     composable(Screen.Profile.route){ Profile(navController)}
-                    detailComposable(detailViewModel)
+                    detailComposable(detailViewModel, navController)
                 }
                     }
                 }

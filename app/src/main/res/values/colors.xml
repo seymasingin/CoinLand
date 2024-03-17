@@ -8,4 +8,8 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="chartColor">#082097</color>
+    <color name="textcolor">#000000</color>
+    <color name="upcolor">#3D6E2A</color>
+    <color name="downcolor">#8E0A0A</color>
+    <color name="buy">#17556E</color>
 </resources>

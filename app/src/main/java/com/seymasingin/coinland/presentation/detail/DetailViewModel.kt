@@ -6,11 +6,8 @@ import com.seymasingin.coinland.data.model.CoinDetail
 import com.seymasingin.coinland.data.source.remote.CoinService
 import com.seymasingin.coinland.intent.CoinListIntent
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 

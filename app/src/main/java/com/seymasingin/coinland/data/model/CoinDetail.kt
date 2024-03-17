@@ -1,19 +1,8 @@
 package com.seymasingin.coinland.data.model
 
-import android.media.Image
 import com.google.gson.annotations.SerializedName
 
 data class CoinDetail (
-
-
-    @SerializedName("community_score")
-    val communityScore: Double,
-
-    @SerializedName("country_origin")
-    val countryOrigin: String,
-
-    @SerializedName("hashing_algorithm")
-    val hashingAlgorithm: String,
 
     @SerializedName("id")
     val id: String,
@@ -30,11 +19,14 @@ data class CoinDetail (
     @SerializedName("low_24h")
     val low24h: String,
 
-    @SerializedName("liquidity_score")
-    val liquidityScore: Double,
+    @SerializedName("ath")
+    val ath: String,
 
-    @SerializedName("market_cap_rank")
-    val marketCapRank: Int,
+    @SerializedName("atl")
+    val atl: String,
+
+    @SerializedName("market_cap")
+    val marketCap: String,
 
     @SerializedName("name")
     val name: String,
@@ -47,6 +39,4 @@ data class CoinDetail (
 
     @SerializedName("price_change_percentage_24h")
     val priceChangePercentage: String,
-
-    val sparklineData: List<DataPoint>,
 )

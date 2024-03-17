@@ -3,14 +3,15 @@ package com.seymasingin.coinland.presentation.detail
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavType
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 
 fun NavGraphBuilder.detailComposable(
-    detailViewModel: DetailViewModel
-
+    detailViewModel: DetailViewModel,
+    navController: NavController
 ) {
     composable(
         route = "detail/{coinId}",
@@ -28,7 +29,7 @@ fun NavGraphBuilder.detailComposable(
 
         val selectedCoin by detailViewModel.selectedCoin.collectAsState()
 
-        Detail( detailViewModel, selectedCoin)
+        Detail( detailViewModel, selectedCoin, navController)
 
     }
 }
