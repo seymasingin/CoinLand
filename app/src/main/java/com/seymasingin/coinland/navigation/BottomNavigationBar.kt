@@ -20,7 +20,7 @@ fun BottomNavigationBar(navController: NavController) {
     val currentDestination = navBackStackEntry?.destination
 
     NavigationBar {
-        val items = listOf(Screen.Home, Screen.Stock, Screen.Profile)
+        val items = listOf(Screen.Home, Screen.Stock)
 
         items.forEachIndexed { _, item ->
 
@@ -29,8 +29,6 @@ fun BottomNavigationBar(navController: NavController) {
                     when (item) {
                         Screen.Home -> Icon(painter =painterResource(id = R.drawable.ic_home), contentDescription = "")
                         Screen.Stock -> Icon(painter = painterResource(id = R.drawable.ic_stock), contentDescription = "")
-                        Screen.Profile -> Icon(painter =painterResource(id = R.drawable.ic_profile), contentDescription = "")
-                        else -> {}
                     }
                        },
                 label = { Text(item.label) },
