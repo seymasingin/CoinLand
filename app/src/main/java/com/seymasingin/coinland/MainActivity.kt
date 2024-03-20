@@ -15,8 +15,7 @@ import androidx.navigation.compose.rememberNavController
 import com.seymasingin.coinland.navigation.BottomNavigationBar
 import com.seymasingin.coinland.navigation.Screen
 import com.seymasingin.coinland.presentation.home.Home
-import com.seymasingin.coinland.presentation.Profile
-import com.seymasingin.coinland.presentation.Stock
+import com.seymasingin.coinland.presentation.stock.Stock
 import com.seymasingin.coinland.presentation.detail.DetailViewModel
 import com.seymasingin.coinland.presentation.detail.detailComposable
 import com.seymasingin.coinland.presentation.home.HomeViewModel
@@ -47,7 +46,7 @@ override fun onCreate(savedInstanceState: Bundle?) {
                         Home( viewModel = homeViewModel,
                             navController)
                     }
-                    composable(Screen.Stock.route){ Stock(navController)}
+                    composable(Screen.Stock.route){ Stock(navController) }
                     detailComposable(detailViewModel, navController)
                 }
                     }

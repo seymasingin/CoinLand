@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
@@ -50,6 +49,7 @@ import com.bumptech.glide.integration.compose.GlideImage
 import com.seymasingin.coinland.R
 import com.seymasingin.coinland.data.model.CoinDetail
 import com.seymasingin.coinland.intent.CoinListIntent
+import java.text.DecimalFormat
 
 @SuppressLint("UnrememberedMutableState")
 @OptIn(ExperimentalGlideComposeApi::class)
@@ -190,7 +190,7 @@ fun Detail(
                         if (showCoinDialog.value) {
                             CoinDialog(
                                 onDismissRequest = { showCoinDialog.value = false },
-                                onConfirmation = { /*TODO*/ },
+                                onConfirmation = { navController.navigate("stock/${sn.id}") },
                                 selectedCoin = selectedCoin
                             )
                         }
@@ -377,7 +377,6 @@ fun Detail(
                                 )
                             }
                         }
-
                     }
                 }
             }
@@ -397,27 +396,10 @@ fun CoinDialog(
     var textCoin by remember { mutableStateOf(TextFieldValue("")) }
     var textUSD by remember {  mutableStateOf(TextFieldValue("")) }
 
+    val decimalFormat = DecimalFormat("#.####")
+
     val calculateUSD = fun(coinAmount: Double): String {
         return (coinAmount * sn.price).toString()
-    }
-
-    LaunchedEffect(key1 = textCoin) {
-        textUSD = if (textCoin.text.isNotEmpty()) {
-            val coinAmount = textCoin.text.toDouble()
-            TextFieldValue(calculateUSD(coinAmount))
-        } else {
-            TextFieldValue("")
-        }
-    }
-
-    LaunchedEffect(key1 = textUSD) {
-        textCoin = if (textUSD.text.isNotEmpty()) {
-            val usdAmount = textUSD.text.toDouble()
-            val coinAmount = usdAmount / sn.price
-            TextFieldValue(coinAmount.toString())
-        } else {
-            TextFieldValue("")
-        }
     }
 
     Dialog(
@@ -431,29 +413,63 @@ fun CoinDialog(
             shape = RoundedCornerShape(16.dp),
         ) {
             Column(
-                modifier = Modifier.padding(8.dp)
+                modifier = Modifier.padding(10.dp),
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Row(
+                    horizontalArrangement = Arrangement.Center,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Text(
+                        text = sn.name,
+                        fontSize = 20.sp,
+                        fontWeight = FontWeight.Bold
+                    )
+                }
+                Row(
+                    modifier = Modifier.padding(top=30.dp),
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
                     TextField(
-                        modifier = Modifier.weight(1f).padding(end= 15.dp),
+                        modifier = Modifier
+                            .weight(1f)
+                            .padding(end = 15.dp),
                         value = textCoin,
-                        onValueChange = { textCoin = it },
+                        onValueChange = {
+                            textCoin = it
+                            textUSD = if (it.text.isNotEmpty()) {
+                                val coinAmount = it.text.toDouble()
+                                TextFieldValue(calculateUSD(coinAmount))
+                            } else {
+                                TextFieldValue("")
+                            }
+                        },
                         label = { Text("Coin Value") },
                         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
                     )
                     TextField(
                         modifier = Modifier.weight(1f),
                         value = textUSD,
-                        onValueChange = { textUSD = it },
+                        onValueChange = {
+                            textUSD = it
+                            textCoin = if (it.text.isNotEmpty()) {
+                                val usdAmount = it.text.toDoubleOrNull() ?: 0.0
+                                val coinAmount = usdAmount / sn.price
+                                TextFieldValue(decimalFormat.format(coinAmount))
+                            } else {
+                                TextFieldValue("")
+                            }
+                        },
                         label = { Text("USD Value") },
                         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
                     )
                 }
                 Row(
-                    modifier = Modifier.fillMaxWidth().padding(top= 30.dp),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(top = 30.dp),
                     horizontalArrangement = Arrangement.SpaceAround,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
@@ -461,7 +477,7 @@ fun CoinDialog(
                         Text("Cancel", fontSize = 20.sp)
                     }
                     TextButton(onClick = { onConfirmation() }) {
-                        Text("OK", fontSize = 20.sp)
+                        Text("BUY", fontSize = 20.sp)
                     }
                 }
             }

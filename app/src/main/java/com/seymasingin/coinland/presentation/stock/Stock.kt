@@ -1,4 +1,4 @@
-package com.seymasingin.coinland.presentation
+package com.seymasingin.coinland.presentation.stock
 
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavController
