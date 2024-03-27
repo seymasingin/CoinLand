@@ -4,6 +4,4 @@ Work in progress :computer:
 
 Api: [CoinGecko API](https://docs.coingecko.com/v3.0.1/reference/introduction)
 
-![c](https://github.com/seymasingin/CoinLand/assets/113527683/5c0c39b5-07b4-4a40-ac20-22e5197feb57)
-
-
+![coin](https://github.com/seymasingin/CoinLand/assets/113527683/bc051b6e-c214-46ad-a816-8a7825965a0f)
